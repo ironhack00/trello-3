@@ -2,7 +2,7 @@ import { Collapse, Paper, Typography } from '@mui/material';
 import { useState } from 'react';
 import ButtonAddCardList from '../BottonAddCardList/BottonAddCardList';
 import { makeStyles } from '@mui/styles';
-import { fade } from '@mui/material'
+
 
 const useStyles = makeStyles(() => ({
   root: {
