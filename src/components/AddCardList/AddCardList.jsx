@@ -6,7 +6,7 @@ import { makeStyles } from '@mui/styles';
 
 const useStyles = makeStyles(() => ({
   root: {
-    padding: '8px 8px 8px 16px',
+    padding: '8px 0px 0px 8px',
     margin: '8px',
   },
   addCardListTextStyle: {
@@ -14,6 +14,7 @@ const useStyles = makeStyles(() => ({
     margin: '8px',
     background: '#ebecf0',
     transition: 'background 0.3s', // Agregamos una transición suave
+    cursor: 'pointer',
     '&:hover': {
       backgroundColor: 'rgba(0, 0, 0, 0.1)' // Cambiamos el color de fondo al hacer hover
     }

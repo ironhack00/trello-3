@@ -6,6 +6,9 @@ import IconButton from '@mui/material/IconButton';
 import { MoreHoriz } from '@mui/icons-material';
 
 
+
+
+
 const BottonAddCardList = () => {
 
     const [title, setTitle]  = useState('')
@@ -24,8 +27,8 @@ const BottonAddCardList = () => {
         />
       </Paper>
       <div className={classes.confirm}>
-        <div className={classes.btnconfirm}>
-          <Button > Add Card </Button>
+        <div className={classes.options}>
+          <Button sx={btnconfirm}> Add Card </Button>
           <IconButton>
             <CloseIcon/>
           </IconButton>
@@ -43,13 +46,27 @@ export default BottonAddCardList
 const useStyles = makeStyles(() => ({
   input: {
     margin: '8px',
-    boxSizing: 'border-box'
+    boxSizing: 'border-box',
+    width: '300px'
 },
   card:{
     marginRight: '8px',
-    paddingBottom: '32px'
+    paddingBottom: '32px',
+    maxWidth: '280px'
   },
   confirm:{
+    marginTop: '8px',
     display: 'flex',
+  },
+  options:{
+    flexGrow: '1'
   }
 }));
+
+const btnconfirm = {
+  background: '#5aac44',
+  color: '#fff',
+  '&:hover': {
+    backgroundColor: 'rgba(90, 172, 68, 0.7)'
+  }
+};

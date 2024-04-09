@@ -9,10 +9,14 @@ const title = {
  
 };
 
-const titleText ={
+const titleText = {
   fontSize: '1.2rem',
   flexGrow: 1,
   fontWeight: 'bold'
+}
+
+const titl = {
+  margin: '0px 0 0 20px',
 }
 
 const ListTitle = () => {
@@ -21,7 +25,7 @@ const ListTitle = () => {
       <Typography  sx={titleText}>
         let's start the list of components
       </Typography>
-      <MoreHorizIcon/>
+      <MoreHorizIcon sx={titl}/>
     </Box>
   );
 }
