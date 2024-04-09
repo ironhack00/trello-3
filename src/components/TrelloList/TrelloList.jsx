@@ -13,16 +13,17 @@ const paperStyles = {
   margin: '0 8px 0 0', // Utilizamos theme.spacing(1) = 8px
 };
 
-const TrelloList = () => {
+const TrelloList = ({ list }) => {
   return (
-    // Aplica los estilos utilizando el componente Box
-      <Paper sx={paperStyles}>
-        <ListTitle />
-        <TrelloCard />
-        <TrelloCard /> 
-        <AddCardList />
-      </Paper>
+    <Paper sx={paperStyles}>
+      <ListTitle title={list.title} listId={list.id}/>
+      {list.cards && list.cards.map(card => (
+        <TrelloCard card={card} key={card.id} /> 
+      ))}
+      <AddCardList type='card'/>
+    </Paper>
   );
 }
+
 
 export default TrelloList;

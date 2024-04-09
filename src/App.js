@@ -2,24 +2,32 @@ import TrelloList from "./components/TrelloList/TrelloList"
 import { CssBaseline } from '@mui/material';
 import { makeStyles } from '@mui/styles';
 import img from './img/clement-proust-m3StSUrsi3I-unsplash.jpg'
-import BottonAddCardList from "./components/BottonAddCardList/BottonAddCardList";
+import AddCardList from "./components/AddCardList/AddCardList";
+import mockData from './mockData.js';
+import { useState } from "react";
 
 const App = () => {
 
   const classes = useStyles();
+  const [ data, setData ] = useState(mockData)
+  /* console.log(data.lists) */
 
   return (
     <div className={classes.root}>
       <div className={classes.root2}></div>
       <div className={classes.container}>
         <CssBaseline />
-        <TrelloList/>
-        <TrelloList/>
-        <TrelloList/>
-        <TrelloList/>
-        <TrelloList/>
+        { 
+          data.listIds.map( listID =>{
+            const lista = data.lists[listID]
+            /* console.log(lista) */
+            return(
+              <TrelloList list={lista} key={listID}/>
+            )
+          } )
+        }
         <div>
-        <BottonAddCardList/>
+        <AddCardList type='list'/>
         </div>
       </div>
       

@@ -9,7 +9,7 @@ import { MoreHoriz } from '@mui/icons-material';
 
 
 
-const BottonAddCardList = () => {
+const BottonAddCardList = ({type, setOpen}) => {
 
     const [title, setTitle]  = useState('')
     const classes = useStyles();
@@ -19,17 +19,22 @@ const BottonAddCardList = () => {
       <Paper className={classes.card} >
         <InputBase 
          multiline
+         onBlur={ ()=> setOpen(false) }
         className={classes.input}
         value={title}
         onChange={ e => setTitle(e.target.value) }
-        placeholder='Enter a title for this card...'
+        placeholder={
+          type === 'card' ? 'Enter a title for this card...' : 'Enter list title '
+        }
+        
         /* inputProps={{className: classes.input}} */
         />
       </Paper>
       <div className={classes.confirm}>
         <div className={classes.options}>
-          <Button sx={btnconfirm}> Add Card </Button>
-          <IconButton>
+          {type === 'card' ? <Button sx={btnconfirm}> Add Card </Button> : <Button sx={btnconfirm}> Add List </Button> }
+          
+          <IconButton onClick={ ()=> setOpen(false) }>
             <CloseIcon/>
           </IconButton>
         </div>
@@ -50,9 +55,9 @@ const useStyles = makeStyles(() => ({
     width: '300px'
 },
   card:{
-    marginRight: '8px',
+    /* marginRight: '8px', */
     paddingBottom: '32px',
-    maxWidth: '280px'
+    maxWidth: '100%'
   },
   confirm:{
     marginTop: '8px',

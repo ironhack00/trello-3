@@ -6,12 +6,12 @@ import { makeStyles } from '@mui/styles';
 
 const useStyles = makeStyles(() => ({
   root: {
-    padding: '8px 0px 0px 8px',
+    /* padding: '8px 0px 0px 8px', */
     margin: '8px',
   },
   addCardListTextStyle: {
     padding: '8px',
-    margin: '8px',
+    margin: '0 3px 0 0',
     background: '#ebecf0',
     transition: 'background 0.3s', // Agregamos una transición suave
     cursor: 'pointer',
@@ -21,19 +21,22 @@ const useStyles = makeStyles(() => ({
   },
 }));
 
-const AddCardList = () => {
+const AddCardList = ({type}) => {
   const [isAddCardListOpen, setIsAddCardListOpen] = useState(true);
   const classes = useStyles();
 
   return (
     <div className={classes.root}>
       <Collapse in={isAddCardListOpen}>
-        <ButtonAddCardList />
+        <ButtonAddCardList type={type} setOpen={ setIsAddCardListOpen } />
       </Collapse>
       <Collapse in={!isAddCardListOpen}>
-        <Paper className={classes.addCardListTextStyle}>
+        <Paper onClick={ ()=> setIsAddCardListOpen(true) } className={classes.addCardListTextStyle}>
           <Typography variant="body1">
-            + Add another card...
+            {
+              type === 'card' ? '+ Add another card...' : '+ Add another List...'
+            }
+            
           </Typography>
         </Paper>
       </Collapse>

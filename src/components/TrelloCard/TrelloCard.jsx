@@ -6,12 +6,14 @@ const trelloCard ={
   margin: '8px 8px 8px 8px'
 }
 
-const TrelloCard = () => {
+const TrelloCard = ({ card }) => {
+  console.log(card, 'trello card');
+
   return (
     <Paper sx={trelloCard}>
-      Card
+      {card.title} {/* Mostrar el título de la tarjeta */}
     </Paper>
-  )
+  );
 }
 
 export default TrelloCard
