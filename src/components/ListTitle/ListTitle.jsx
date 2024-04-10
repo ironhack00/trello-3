@@ -1,9 +1,8 @@
 import { Box, Typography, InputBase } from "@mui/material";
 import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
 import { useState } from "react";
-import { width } from "@mui/system";
 
-const title = {
+const tit = {
   display: 'flex',
   margin: '8px',
 };
@@ -30,17 +29,19 @@ const input = {
   }
 };
 
-const ListTitle = ({title, listId}) => {
+const ListTitle = ({ title, listId }) => {
   const [clicked, setClicked] = useState(false);
   const [open, setOpen] = useState(true);
   const [newTitle, setNewTitle] = useState(title);
 
   const handleInputClick = () => {
-    setClicked(true); // Se establece en true cuando se hace clic en el input
+    setClicked(true);
+    setOpen(true);
   };
 
   const handleInputBlur = () => {
-    setClicked(false); // Se establece en false cuando el input pierde el foco
+    setClicked(false);
+    setOpen(false);
   };
 
   return (
@@ -55,23 +56,23 @@ const ListTitle = ({title, listId}) => {
         fullWidth
         sx={{
           ...input,
-          ...(clicked && { // Si se hizo clic, agregamos los estilos adicionales
+          ...(clicked && {
             backgroundColor: '#ddd',
             borderRadius: '4px',
             boxShadow: '0 0 0 2px rgba(0, 0, 0, 0.2)',
             width: '95%'
           })
         }}
-        onClick={handleInputClick} // Maneja el clic en el input
-        onBlur={handleInputBlur} // Maneja el evento onBlur para restablecer el estado
+        onClick={handleInputClick}
+        onBlur={handleInputBlur}
       />
       :
-      <Box sx={title}>
-      <Typography  sx={titleText}>
-        let's start the list of components
-      </Typography>
-      <MoreHorizIcon sx={titl}/>
-    </Box>
+      <Box sx={tit}>
+          <Typography onClick={handleInputClick} sx={titleText}>
+            {newTitle}
+          </Typography>
+          <MoreHorizIcon sx={titl}/>
+      </Box>
     }
     </>
   );
