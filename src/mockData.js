@@ -1,6 +1,6 @@
 const mockData = {
     lists:{
-        '01List':{
+        '01list':{
             id: '01list',
             title: 'Vamos che',
             cards: [{
@@ -16,13 +16,13 @@ const mockData = {
                 title: 'Comprar carne'
             }]
         },
-        '02List':{
+        '02list':{
             id: '02list',
             title: 'In progress',
             cards: []
         },
     },
-    listIds: ['01List', '02List']
+    listIds: ['01list', '02list']
 }
 
 export default mockData;

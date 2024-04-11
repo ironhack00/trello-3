@@ -10,61 +10,71 @@ import ContextAPI from '../../ContextAPI';
 
 
 
-const BottonAddCardList = ({type, setOpen, listId}) => {
-    const [title, setTitle]  = useState('')
-    const classes = useStyles();
+const BottonAddCardList = ({ type, setOpen, listId }) => {
+  const [title, setTitle] = useState('');
+  const classes = useStyles();
+  const { addCard, addList } = useContext(ContextAPI);
 
-  const { addCard, addList } = useContext(ContextAPI)
-
-    const handleadd = () =>{
-      if(type == 'card'){
-        /* console.log(listId) */
-         addCard( listId ) 
-          
-        
-      }else{
-         addList ()
+  const handleAdd = () => {
+    /* console.log(listId, title) */
+    if(title !== ''){
+      if (type === 'card') {
+        /* const listIDCapitalized =
+          listId.slice(0, 2) + listId.charAt(2).toUpperCase() + listId.slice(3); */
+        addCard(listId, title);
+      } else {
+        addList(title);
       }
-        setTitle('');
-        setOpen(false);
-      return;
-    }
+    }  
+      setTitle('');
+      setOpen(false);
+  };
 
-   
+  const handleCancel = () => {
+    setTitle('');
+    setOpen(false);
+  };
 
   return (
     <>
-      <Paper className={classes.card} >
-        <InputBase 
-         multiline
-         onBlur={ ()=> setOpen(false) }
-        className={classes.input}
-        value={title}
-        onChange={ e => setTitle(e.target.value) }
-        placeholder={
-          type === 'card' ? 'Enter a title for this card...' : 'Enter list title '
-        }
-        
-        /* inputProps={{className: classes.input}} */
+      <Paper className={classes.card}>
+        <InputBase
+          multiline
+          className={classes.input}
+          value={title}
+          onChange={(e) => setTitle(e.target.value)}
+          placeholder={
+            type === 'card'
+              ? 'Enter a text for this card...'
+              : 'Enter list title '
+          }
         />
       </Paper>
       <div className={classes.confirm}>
         <div className={classes.options}>
-          {type === 'card' ? <Button sx={btnconfirm} type ='card' onClick={ handleadd }> Add Card </Button> : <Button onClick={ handleadd } type ='Enter list title' sx={btnconfirm}> Add List </Button> }
-          
-          <IconButton onClick={ ()=> setOpen(false) }>
-            <CloseIcon/>
+          {type === 'card' ? (
+            <Button sx={btnconfirm} onClick={handleAdd}>
+              Add Card
+            </Button>
+          ) : (
+            <Button onClick={handleAdd} sx={btnconfirm}>
+              Add List
+            </Button>
+          )}
+
+          <IconButton onClick={handleCancel}>
+            <CloseIcon />
           </IconButton>
         </div>
         <IconButton>
-          <MoreHoriz/>
+          <MoreHoriz />
         </IconButton>
       </div>
     </>
-  )
-}
+  );
+};
 
-export default BottonAddCardList
+export default BottonAddCardList;
 
 const useStyles = makeStyles(() => ({
   input: {

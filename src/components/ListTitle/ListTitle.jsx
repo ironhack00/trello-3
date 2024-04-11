@@ -44,8 +44,8 @@ const ListTitle = ({ title, listId }) => {
   const handleInputBlur = () => {
     setClicked(false);
     setOpen(false);
-    const listIDCapitalized = listId.slice(0, 2) + listId.charAt(2).toUpperCase() + listId.slice(3);
-    upDateListTitle(newTitle, listIDCapitalized)
+   /*  const listIDCapitalized = listId.slice(0, 2) + listId.charAt(2).toUpperCase() + listId.slice(3); */
+    upDateListTitle(newTitle, listId)
     /* console.log(listId) */
   };
 

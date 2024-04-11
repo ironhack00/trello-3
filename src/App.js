@@ -6,6 +6,7 @@ import AddCardList from "./components/AddCardList/AddCardList";
 import mockData from './mockData.js';
 import { useState } from "react";
 import ContextAPI from './ContextAPI.js';
+import shortid from 'shortid';
 
 const App = () => {
 
@@ -26,16 +27,40 @@ const App = () => {
     /* console.log(lis) */
   }
 
-  const addCard = (idList) =>{
-    {
-      const lis = idList;
-      console.log(idList,' aca')  
+  const addCard = (idList, title) =>{
+    const lis = data.lists[idList];
+    /* console.log(title) */
     
-    }
+    const newCard = {};
+    newCard.id = shortid.generate();
+    newCard.title = title;
+    lis.cards.push(newCard)
+    console.log(lis.cards, ' no pasa nada')
+    setData({
+      ...data,
+      lists:{
+        ...data.lists,
+        [idList] : lis
+      }
+    })
   };
 
-  const addList = () =>{
-    
+  const addList = (title) =>{
+    const idGenerate = shortid.generate();
+    const newList = {
+      id: idGenerate,
+      title,
+      cards: []
+    };
+    console.log(newList)
+    setData({
+      ...data,
+      lists:{
+        ...data.lists,
+        [idGenerate]: newList
+      },
+      listIds: [ ...data.listIds, idGenerate ]
+    })
   };
 
   return (

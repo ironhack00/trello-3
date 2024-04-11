@@ -2,6 +2,7 @@ import { Collapse, Paper, Typography } from '@mui/material';
 import { useState } from 'react';
 import ButtonAddCardList from '../BottonAddCardList/BottonAddCardList';
 import { makeStyles } from '@mui/styles';
+import { fontWeight, width } from '@mui/system';
 
 
 const useStyles = makeStyles(() => ({
@@ -21,8 +22,12 @@ const useStyles = makeStyles(() => ({
   },
 }));
 
+const btn = {
+  fontWeight : '550'
+}
+
 const AddCardList = ({type, listId}) => {
-  const [isAddCardListOpen, setIsAddCardListOpen] = useState(true);
+  const [isAddCardListOpen, setIsAddCardListOpen] = useState(false);
   const classes = useStyles();
 
   return (
@@ -32,7 +37,7 @@ const AddCardList = ({type, listId}) => {
       </Collapse>
       <Collapse in={!isAddCardListOpen}>
         <Paper onClick={ ()=> setIsAddCardListOpen(true) } className={classes.addCardListTextStyle}>
-          <Typography variant="body1">
+          <Typography sx={btn} variant="body1">
             {
               type === 'card' ? '+ Add another card...' : '+ Add another List...'
             }
