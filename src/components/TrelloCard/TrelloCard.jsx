@@ -1,5 +1,5 @@
 import { Paper } from '@mui/material';
-import { margin, padding } from '@mui/system';
+
 
 const trelloCard ={
   padding: '8px 8px 8px 16px',
@@ -7,7 +7,7 @@ const trelloCard ={
 }
 
 const TrelloCard = ({ card }) => {
-  console.log(card, 'trello card');
+  /* console.log(card, 'trello card'); */
 
   return (
     <Paper sx={trelloCard}>

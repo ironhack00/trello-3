@@ -21,14 +21,14 @@ const useStyles = makeStyles(() => ({
   },
 }));
 
-const AddCardList = ({type}) => {
+const AddCardList = ({type, listId}) => {
   const [isAddCardListOpen, setIsAddCardListOpen] = useState(true);
   const classes = useStyles();
 
   return (
     <div className={classes.root}>
       <Collapse in={isAddCardListOpen}>
-        <ButtonAddCardList type={type} setOpen={ setIsAddCardListOpen } />
+        <ButtonAddCardList type={type} listId={listId} setOpen={ setIsAddCardListOpen } />
       </Collapse>
       <Collapse in={!isAddCardListOpen}>
         <Paper onClick={ ()=> setIsAddCardListOpen(true) } className={classes.addCardListTextStyle}>

@@ -2,7 +2,7 @@ import { Paper } from '@mui/material';
 import ListTitle from '../ListTitle/ListTitle';
 import TrelloCard from '../TrelloCard/TrelloCard';
 import AddCardList from '../AddCardList/AddCardList';
-import { maxHeight, maxWidth, minWidth } from '@mui/system';
+
 
 // Define los estilos por separado
 
@@ -20,7 +20,7 @@ const TrelloList = ({ list }) => {
       {list.cards && list.cards.map(card => (
         <TrelloCard card={card} key={card.id} /> 
       ))}
-      <AddCardList type='card'/>
+      <AddCardList type='card' listId={list.id}/>
     </Paper>
   );
 }

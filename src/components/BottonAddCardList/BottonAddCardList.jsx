@@ -1,18 +1,36 @@
 import { Button, Paper, InputBase } from '@mui/material';
-import { useState } from 'react';
+import { useState, useContext } from 'react';
 import { makeStyles } from '@mui/styles';
 import CloseIcon from '@mui/icons-material/Close';
 import IconButton from '@mui/material/IconButton';
 import { MoreHoriz } from '@mui/icons-material';
+import ContextAPI from '../../ContextAPI';
 
 
 
 
 
-const BottonAddCardList = ({type, setOpen}) => {
-
+const BottonAddCardList = ({type, setOpen, listId}) => {
     const [title, setTitle]  = useState('')
     const classes = useStyles();
+
+  const { addCard, addList } = useContext(ContextAPI)
+
+    const handleadd = () =>{
+      if(type == 'card'){
+        /* console.log(listId) */
+         addCard( listId ) 
+          
+        
+      }else{
+         addList ()
+      }
+        setTitle('');
+        setOpen(false);
+      return;
+    }
+
+   
 
   return (
     <>
@@ -32,7 +50,7 @@ const BottonAddCardList = ({type, setOpen}) => {
       </Paper>
       <div className={classes.confirm}>
         <div className={classes.options}>
-          {type === 'card' ? <Button sx={btnconfirm}> Add Card </Button> : <Button sx={btnconfirm}> Add List </Button> }
+          {type === 'card' ? <Button sx={btnconfirm} type ='card' onClick={ handleadd }> Add Card </Button> : <Button onClick={ handleadd } type ='Enter list title' sx={btnconfirm}> Add List </Button> }
           
           <IconButton onClick={ ()=> setOpen(false) }>
             <CloseIcon/>

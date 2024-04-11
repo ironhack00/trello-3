@@ -1,6 +1,7 @@
 import { Box, Typography, InputBase } from "@mui/material";
 import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
-import { useState } from "react";
+import { useContext, useState } from "react";
+import ContextAPI from "../../ContextAPI";
 
 const tit = {
   display: 'flex',
@@ -33,6 +34,7 @@ const ListTitle = ({ title, listId }) => {
   const [clicked, setClicked] = useState(false);
   const [open, setOpen] = useState(true);
   const [newTitle, setNewTitle] = useState(title);
+  const {upDateListTitle} = useContext(ContextAPI)
 
   const handleInputClick = () => {
     setClicked(true);
@@ -42,6 +44,9 @@ const ListTitle = ({ title, listId }) => {
   const handleInputBlur = () => {
     setClicked(false);
     setOpen(false);
+    const listIDCapitalized = listId.slice(0, 2) + listId.charAt(2).toUpperCase() + listId.slice(3);
+    upDateListTitle(newTitle, listIDCapitalized)
+    /* console.log(listId) */
   };
 
   return (
@@ -69,7 +74,7 @@ const ListTitle = ({ title, listId }) => {
       :
       <Box sx={tit}>
           <Typography onClick={handleInputClick} sx={titleText}>
-            {newTitle}
+            {title}
           </Typography>
           <MoreHorizIcon sx={titl}/>
       </Box>
