@@ -3,6 +3,7 @@ import { useState } from 'react';
 import ButtonAddCardList from '../BottonAddCardList/BottonAddCardList';
 import { makeStyles } from '@mui/styles';
 import { fontWeight, width } from '@mui/system';
+import { Padding } from '@mui/icons-material';
 
 
 const useStyles = makeStyles(() => ({
@@ -12,7 +13,7 @@ const useStyles = makeStyles(() => ({
   },
   addCardListTextStyle: {
     padding: '8px',
-    margin: '0 3px 0 0',
+    margin: '0 3px 8px 0',
     background: '#ebecf0',
     transition: 'background 0.3s', // Agregamos una transición suave
     cursor: 'pointer',
@@ -23,7 +24,7 @@ const useStyles = makeStyles(() => ({
 }));
 
 const btn = {
-  fontWeight : '550'
+  fontWeight : '550',
 }
 
 const AddCardList = ({type, listId}) => {
