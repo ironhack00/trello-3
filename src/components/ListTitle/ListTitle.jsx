@@ -1,5 +1,6 @@
 import { Box, Typography, InputBase } from "@mui/material";
 import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
+import DeleteIcon from '@mui/icons-material/Delete';
 import { useContext, useState } from "react";
 import ContextAPI from "../../ContextAPI";
 
@@ -15,7 +16,7 @@ const titleText = {
 };
 
 const titl = {
-  margin: '0px 0 0 20px',
+  margin: '2px 0 0 20px',
 };
 
 const input = {
@@ -34,7 +35,7 @@ const ListTitle = ({ title, listId }) => {
   const [clicked, setClicked] = useState(false);
   const [open, setOpen] = useState(true);
   const [newTitle, setNewTitle] = useState(title);
-  const {upDateListTitle} = useContext(ContextAPI)
+  const {upDateListTitle, Delete} = useContext(ContextAPI)
 
   const handleInputClick = () => {
     setClicked(true);
@@ -50,6 +51,7 @@ const ListTitle = ({ title, listId }) => {
   };
 
   return (
+
     <>
     {
       open === true ? 
@@ -76,7 +78,7 @@ const ListTitle = ({ title, listId }) => {
           <Typography onClick={handleInputClick} sx={titleText}>
             {title}
           </Typography>
-          <MoreHorizIcon sx={titl}/>
+          <DeleteIcon sx={titl} onClick={ ()=>Delete(listId) } />
       </Box>
     }
     </>

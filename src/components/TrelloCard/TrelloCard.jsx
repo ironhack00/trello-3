@@ -1,4 +1,5 @@
 import { Paper } from '@mui/material';
+import { Draggable } from 'react-beautiful-dnd';
 
 
 const trelloCard ={
@@ -6,13 +7,25 @@ const trelloCard ={
   margin: '8px 8px 8px 8px'
 }
 
-const TrelloCard = ({ card }) => {
+const TrelloCard = ({ card, index }) => {
   /* console.log(card, 'trello card'); */
 
   return (
-    <Paper sx={trelloCard}>
-      {card.title} {/* Mostrar el título de la tarjeta */}
-    </Paper>
+    <Draggable draggableId={card.id} index={index}>
+      {
+        (provided) => (
+          <div 
+          ref={provided.innerRef}
+          {...provided.dragHandleProps}
+          {...provided.draggableProps}
+          >
+            <Paper sx={trelloCard}>
+              {card.title} {/* Mostrar el título de la tarjeta */}
+            </Paper>
+          </div>
+        )
+      }
+    </Draggable>
   );
 }
 

@@ -7,6 +7,7 @@ import mockData from './mockData.js';
 import { useState } from "react";
 import ContextAPI from './ContextAPI.js';
 import shortid from 'shortid';
+import { DragDropContext, Droppable } from 'react-beautiful-dnd'
 
 const App = () => {
 
@@ -35,7 +36,7 @@ const App = () => {
     newCard.id = shortid.generate();
     newCard.title = title;
     lis.cards.push(newCard)
-    console.log(lis.cards, ' no pasa nada')
+    /* console.log(lis.cards, ' no pasa nada') */
     setData({
       ...data,
       lists:{
@@ -52,7 +53,7 @@ const App = () => {
       title,
       cards: []
     };
-    console.log(newList)
+    /* console.log(newList) */
     setData({
       ...data,
       lists:{
@@ -63,26 +64,98 @@ const App = () => {
     })
   };
 
+  const onDragEnd = (result) => {
+    const { destination, destination: {droppableId: destdroppableId, index: destIndex}, source, source:{ droppableId: sourcedroppableId, index: sourceIndex } , draggableId, type } = result;
+    /* console.table([
+      {
+        destdroppableId,
+        sourcedroppableId,
+        draggableId
+      },
+      {
+        type,
+        sourceIndex,
+        destIndex,
+      }
+    ]) */
+  
+    if( !destination ) return
+    
+    if( type === 'list' ){
+      const newListIds = data.listIds
+      newListIds.splice(sourceIndex, 1)
+      newListIds.splice(destIndex, 0, draggableId)
+      return
+    } 
+  
+    const sourceList = data.lists[sourcedroppableId]
+    const destinationList = data.lists[destdroppableId]
+    const dragginCard = sourceList.cards.filter( card => card.id === draggableId)[0]
+  
+    if(sourcedroppableId === destdroppableId){
+      sourceList.cards.splice(sourceIndex, 1); // Corregir aquí
+      destinationList.cards.splice(destIndex, 0, dragginCard); // Corregir aquí
+      setData({
+        ...data,
+        lists: {
+          ...data.lists,
+          [sourceList.id] : destinationList
+        }
+      })
+    }else{
+      sourceList.cards.splice(sourceIndex, 1);
+      destinationList.cards.splice(destIndex, 0, dragginCard);
+      setData({
+        ...data,
+        [sourceList.id]: sourceList,
+        [destinationList.id]: destinationList
+      })
+    }
+  }
+
+  const Delete = (idList) => {
+    const filteredLists = Object.fromEntries(
+      Object.entries(data.lists).filter(([listId, _]) => listId !== idList)
+    );
+    const filteredListIds = data.listIds.filter((listId) => listId !== idList);
+    setData({
+      ...data,
+      lists: filteredLists,
+      listIds: filteredListIds,
+    });
+  }
+
   return (
-    <ContextAPI.Provider value={{upDateListTitle, addCard, addList}}>
+    <ContextAPI.Provider value={{upDateListTitle, addCard, addList, Delete}}>
     <div className={classes.root}>
       <div className={classes.root2}></div>
-      <div className={classes.container}>
-        <CssBaseline />
-        { 
-          data.listIds.map( listID =>{
-            const lista = data.lists[listID]
-           /*  console.log(lista) */
-            return(
-              <TrelloList list={lista} key={listID}/>
-            )
-          } )
-        }
-        <div>
-        <AddCardList type='list'/>
+      <DragDropContext onDragEnd={onDragEnd}>
+        <Droppable droppableId="12345" type="list" direction="horizontal">
+          {
+            (provided) =>(
+              <div className={classes.container}
+              ref={provided.innerRef}
+              {...provided.droppableProps}
+              >
+                <CssBaseline />
+              { 
+               data.listIds.map( (listID, index) =>{
+              const lista = data.lists[listID]
+              return(
+                <TrelloList list={lista} key={listID} index={index}/>
+              )
+            } )
+          }
+          <div>
+          <AddCardList type='list'/>
+          {provided.placeholder}
+          </div>
         </div>
-      </div>
-      
+            )
+          }
+        
+        </Droppable>
+      </DragDropContext>  
     </div>
     </ContextAPI.Provider>
   )
