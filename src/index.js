@@ -7,7 +7,7 @@ import { CssBaseline } from '@mui/material';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
-  <div>
+  <div class='background'>
  
     <CssBaseline />
     <App />
