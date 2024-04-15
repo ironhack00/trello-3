@@ -125,8 +125,39 @@ const App = () => {
     });
   }
 
+  const handleChangeTitle = (newTitle, cardId) => {
+    const updatedData = {
+      ...data,
+      lists: {
+        ...data.lists
+      }
+    };
+
+    // Buscar la tarjeta con el ID dado y actualizar su título
+    for (const listId in updatedData.lists) {
+      const list = updatedData.lists[listId];
+      const cardToUpdate = list.cards.find(card => card.id === cardId);
+      if (cardToUpdate) {
+        cardToUpdate.title = newTitle;
+        break;
+      }
+    }
+
+    setData(updatedData);
+  };
+
+  const deleteCard = (cardId) => {
+    const updatedData = { ...data };
+    Object.keys(updatedData.lists).forEach((listId) => {
+      updatedData.lists[listId].cards = updatedData.lists[listId].cards.filter(
+        (card) => card.id !== cardId
+      );
+    });
+    setData(updatedData);
+  };
+
   return (
-    <ContextAPI.Provider value={{upDateListTitle, addCard, addList, Delete}}>
+    <ContextAPI.Provider value={{upDateListTitle, addCard, addList, Delete, handleChangeTitle, deleteCard}}>
     <div className={classes.root}>
       <div className={classes.root2}></div>
       <DragDropContext onDragEnd={onDragEnd}>

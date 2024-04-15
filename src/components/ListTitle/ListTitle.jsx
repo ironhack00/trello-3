@@ -1,11 +1,11 @@
-import { Box, Typography, InputBase } from "@mui/material";
-import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
+import { Box, Typography, InputBase, IconButton, Tooltip, Alert, Button } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { useContext, useState } from "react";
 import ContextAPI from "../../ContextAPI";
 
 const tit = {
   display: "flex",
+  alignItems: "center",
   margin: "8px",
 };
 
@@ -16,7 +16,7 @@ const titleText = {
 };
 
 const titl = {
-  margin: "2px 0 0 20px",
+  margin: "0 0 0 20px",
 };
 
 const input = {
@@ -33,9 +33,10 @@ const input = {
 
 const ListTitle = ({ title, listId }) => {
   const [clicked, setClicked] = useState(false);
-  const [open, setOpen] = useState(!title); // Cambiado para desactivar el foco si el título está vacío
+  const [open, setOpen] = useState(!title);
   const [newTitle, setNewTitle] = useState(title);
   const { upDateListTitle, Delete } = useContext(ContextAPI);
+  const [showConfirmation, setShowConfirmation] = useState(false);
 
   const handleInputClick = () => {
     setClicked(true);
@@ -48,6 +49,19 @@ const ListTitle = ({ title, listId }) => {
     upDateListTitle(newTitle, listId);
   };
 
+  const handleDeleteClick = () => {
+    setShowConfirmation(true);
+  };
+
+  const handleDeleteConfirmed = () => {
+    setShowConfirmation(false);
+    Delete(listId);
+  };
+
+  const handleDeleteCancelled = () => {
+    setShowConfirmation(false);
+  };
+
   return (
     <>
       {open === true ? (
@@ -55,7 +69,7 @@ const ListTitle = ({ title, listId }) => {
           value={newTitle}
           multiline
           onChange={(e) => setNewTitle(e.target.value)}
-          autoFocus={!title} // Cambiado para enfocar solo si el título está vacío
+          autoFocus={!title}
           fullWidth
           sx={{
             ...input,
@@ -74,8 +88,25 @@ const ListTitle = ({ title, listId }) => {
           <Typography onClick={handleInputClick} sx={titleText}>
             {title}
           </Typography>
-          <DeleteIcon sx={titl} onClick={() => Delete(listId)} />
+          <Tooltip title="Delete List" arrow>
+            <IconButton sx={titl} onClick={handleDeleteClick}>
+              <DeleteIcon />
+            </IconButton>
+          </Tooltip>
         </Box>
+      )}
+      {showConfirmation && (
+        <Alert severity="warning" sx={{ marginTop: "8px" }}>
+          <Typography variant="body1">Are you sure you want to delete this list?</Typography>
+          <Box sx={{ display: "flex", justifyContent: "flex-end", marginTop: "8px" }}>
+            <Button onClick={handleDeleteCancelled} variant="outlined" color="primary">
+              Cancel
+            </Button>
+            <Button onClick={handleDeleteConfirmed} variant="contained" color="error" sx={{ marginLeft: "8px" }}>
+              Delete
+            </Button>
+          </Box>
+        </Alert>
       )}
     </>
   );
