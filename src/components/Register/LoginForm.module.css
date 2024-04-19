@@ -1,0 +1,156 @@
+/* LoginForm.module.css */
+
+.ubi {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #f2f2f200; /* Color de fondo claro */
+    background-image: url('../../img/a.jpg');
+    background-position: center;
+    background-size: cover;
+  }
+  
+  .body {
+    
+    background-color: rgba(255, 255, 255, 0.158); /* Color de fondo del formulario con opacidad */
+    backdrop-filter: saturate(1) blur(10px);
+    width: 80%; /* Ancho máximo del formulario */
+    height: 60%;
+    max-width: 400px; /* Ancho máximo del formulario */
+    border-radius: 10px; /* Bordes redondeados */
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1), 0 6px 6px rgba(0, 0, 0, 0.1); /* Sombra */
+    padding: 40px; /* Espaciado interno */
+    transition: transform 0.3s ease, box-shadow 0.3s ease; /* Transición suave */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+  
+  .form {
+    display: flex;
+    flex-direction: column;
+  }
+  
+.h2 {
+    margin-bottom: 20px;
+    font-size: 24px;
+    text-align: center;
+    color: #333; /* Color del texto */
+  }
+  
+.label {
+    margin-bottom: 20px;
+    font-size: 16px;
+    color: #555; /* Color del texto de la etiqueta */
+  }
+  
+.input {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ddd; /* Borde */
+    border-radius: 5px; /* Bordes redondeados */
+    font-size: 16px;
+    transition: border-color 0.3s ease; /* Transición suave */
+  }
+  
+.input:focus {
+    border-color: #007bff; /* Color del borde al enfocar */
+  }
+  
+.button {
+    width: 100%;
+    padding: 12px;
+    border: none;
+    border-radius: 5px; /* Bordes redondeados */
+    background-color: #007bff; /* Color de fondo del botón */
+    color: #fff; /* Color del texto del botón */
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease; /* Transición suave */
+  }
+  
+  .button:hover {
+    background-color: #0056b3; /* Color de fondo del botón al pasar el cursor */
+  }
+  
+  .toggle {
+    text-align: center;
+    font-size: 14px;
+    color: #007bff; /* Color del texto del enlace */
+    cursor: pointer;
+  }
+  
+  .toggle:hover {
+    text-decoration: underline; /* Subrayado al pasar el cursor */
+  }
+  
+  /* Estilos para tablet */
+  @media (max-width: 768px) {
+    .body {
+      width: 90%;
+    }
+  }
+  
+  /* Estilos para dispositivos móviles */
+  @media (max-width: 576px) {
+    .body {
+      width: 95%;
+    }
+  }
+  
+  .slide-in {
+    animation: slideIn 0.5s forwards;
+  }
+  
+  @keyframes slideIn {
+    from {
+      opacity: 0;
+      transform: translateY(-50px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
+  .fade-in {
+    animation: fadeIn 0.5s forwards;
+  }
+  
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+  
+  /* LoginForm.module.css */
+
+/* Agregamos la animación para la transición */
+.slide-up {
+    animation: slideUp 0.5s ease forwards;
+  }
+  
+  @keyframes slideUp {
+    from {
+      transform: translateY(50px);
+      opacity: 0;
+    }
+    to {
+      transform: translateY(0);
+      opacity: 1;
+    }
+  }
+  
+  /* Agregamos la animación al botón de enviar */
+  .button-submit {
+    transition: transform 0.2s ease;
+  }
+  
+  .button-submit:hover {
+    transform: scale(1.1);
+  }
+  

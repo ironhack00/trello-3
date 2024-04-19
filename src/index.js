@@ -1,21 +1,28 @@
 import React from 'react';
-import ReactDOM from 'react-dom/client';
+import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { CssBaseline } from '@mui/material';
+import LoginForm from './components/Register/LoginForm';
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route
+} from "react-router-dom";
 
-const root = ReactDOM.createRoot(document.getElementById('root'));
-root.render(
-  <div class='background'>
- 
-    <CssBaseline />
-    <App />
-  
- </div>
+ReactDOM.render(
+  <div className='background'>
+    <Router>
+      <CssBaseline />
+      <Routes>
+        <Route path="/" element={<LoginForm />} />
+        {/* Agrega más rutas aquí según sea necesario */}
+        <Route path="/app" element={<App />} />
+      </Routes>
+    </Router>
+  </div>,
+  document.getElementById('root')
 );
 
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
 reportWebVitals();

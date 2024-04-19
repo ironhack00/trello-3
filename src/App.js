@@ -12,7 +12,8 @@ import { DragDropContext, Droppable } from 'react-beautiful-dnd'
 const App = () => {
 
   const classes = useStyles();
-  const [ data, setData ] = useState(mockData)
+  const [ data, setData ] = useState(mockData);
+  const [ aprob, setAprob ] = useState(true);
   /* console.log(data,' data') */
 
   const upDateListTitle = (newTitle, listId)=>{
@@ -157,38 +158,42 @@ const App = () => {
   };
 
   return (
-    <ContextAPI.Provider value={{upDateListTitle, addCard, addList, Delete, handleChangeTitle, deleteCard}}>
-    <div className={classes.root}>
-      <div className={classes.root2}></div>
-      <DragDropContext onDragEnd={onDragEnd}>
-        <Droppable droppableId="12345" type="list" direction="horizontal">
-          {
-            (provided) =>(
-              <div className={classes.container}
-              ref={provided.innerRef}
-              {...provided.droppableProps}
-              >
-                <CssBaseline />
-              { 
-               data.listIds.map( (listID, index) =>{
-              const lista = data.lists[listID]
-              return(
-                <TrelloList list={lista} key={listID} index={index}/>
-              )
-            } )
-          }
-          <div>
-          <AddCardList type='list'/>
-          {provided.placeholder}
+    <>
+    {
+      aprob === true ? <ContextAPI.Provider value={{upDateListTitle, addCard, addList, Delete, handleChangeTitle, deleteCard}}>
+      <div className={classes.root}>
+        <div className={classes.root2}></div>
+        <DragDropContext onDragEnd={onDragEnd}>
+          <Droppable droppableId="12345" type="list" direction="horizontal">
+            {
+              (provided) =>(
+                <div className={classes.container}
+                ref={provided.innerRef}
+                {...provided.droppableProps}
+                >
+                  <CssBaseline />
+                { 
+                 data.listIds.map( (listID, index) =>{
+                const lista = data.lists[listID]
+                return(
+                  <TrelloList list={lista} key={listID} index={index}/>
+                )
+              } )
+            }
+            <div>
+            <AddCardList type='list'/>
+            {provided.placeholder}
+            </div>
           </div>
-        </div>
-            )
-          }
-        
-        </Droppable>
-      </DragDropContext>  
-    </div>
-    </ContextAPI.Provider>
+              )
+            }
+          
+          </Droppable>
+        </DragDropContext>  
+      </div>
+      </ContextAPI.Provider> : null
+    }
+    </>
   )
 }
 
