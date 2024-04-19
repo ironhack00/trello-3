@@ -16,9 +16,9 @@ ReactDOM.render(
     <Router>
       <CssBaseline />
       <Routes>
-        <Route path="/" element={<LoginForm />} />
+        <Route path="/" element={<App />} />
         {/* Agrega más rutas aquí según sea necesario */}
-        <Route path="/app" element={<App />} />
+        {/* <Route path="/app" element={<App />} /> */}
       </Routes>
     </Router>
   </div>,
