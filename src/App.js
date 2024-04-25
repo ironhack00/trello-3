@@ -14,7 +14,7 @@ const App = () => {
   const classes = useStyles();
   const [ data, setData ] = useState(mockData);
   const [ aprob, setAprob ] = useState(true);
-  /* console.log(data,' data') */
+  console.log(data,' data')
 
   const upDateListTitle = (newTitle, listId)=>{
     const lis = data.lists[listId];

@@ -6,6 +6,7 @@ import reportWebVitals from './reportWebVitals';
 import { CssBaseline } from '@mui/material';
 import LoginForm from './components/Register/LoginForm';
 import { GoogleOAuthProvider } from '@react-oauth/google';
+import Admini from './components/Admini/Admin.jsx'
 import {
   BrowserRouter as Router,
   Routes,
@@ -20,7 +21,8 @@ ReactDOM.render(
       <Routes>
         <Route path="/" element={<LoginForm />} />
         {/* Agrega más rutas aquí según sea necesario */}
-        <Route path="/app" element={<App />} />
+        <Route path="/app" element={<Admini />} />
+        <Route path="/board" element={<App />} />
       </Routes>
     </Router>
   </div>

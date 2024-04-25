@@ -1,0 +1,164 @@
+/* Admin.module.css */
+
+.adminContainer {
+    width: 100%;
+    max-width: 1200px;
+    padding: 0 10px 0;
+    margin: 0 auto;
+    text-align: center;
+    background-color: #000000c9;
+    min-height: 100vh;
+    padding-bottom: 20px;
+    height: 100%;
+    overflow-y: auto; /* Permite el scroll vertical cuando sea necesario */
+    padding-bottom: 20px; 
+  }
+  
+  .adminHeader {
+    padding: 20px;
+  }
+  
+  .createBoardBtn {
+    padding: 10px 20px;
+    font-size: 16px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .cardGrid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 20px;
+  }
+  
+  .formContainer {
+    margin-bottom: 20px;
+  }
+  
+  .form {
+    width: 300px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #f0f0f0;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    position: relative;
+  }
+  
+  .form label,
+  .form input,
+  .form button {
+    display: block;
+    margin-bottom: 10px;
+  }
+  
+  .inputGroup {
+    position: relative;
+  }
+  
+  .inputField {
+    width: calc(100% - 40px);
+    padding: 8px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+  
+  .inputField2 {
+    width: 100%;
+    padding: 8px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+  
+  .addButton {
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 10px;
+  }
+  
+  .addButton2 {
+    display: flex;
+    justify-content: center;
+  }
+  
+  .removeInviteeBtn {
+    position: absolute;
+    top: 50%;
+    right: 10px;
+    transform: translateY(-50%);
+    padding: 5px;
+    font-size: 16px;
+    background-color: #dc3545;
+    color: white;
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+  }
+  
+  .closeFormBtn {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    padding: 5px;
+    font-size: 16px;
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+  }
+  
+  .addInviteeBtn {
+    position: absolute;
+    right: 0;
+    top: 0;
+    transform: translateY(-50%);
+    padding: 5px;
+    font-size: 16px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+  }
+  
+  .removeInviteeBtn:hover,
+  .closeFormBtn:hover,
+  .addInviteeBtn:hover,
+  .addButton:hover {
+    background-color: #c82333;
+  }
+  
+  .acceptButton {
+    padding: 10px 20px;
+    font-size: 16px;
+    background-color: #28a745; /* Cambia el color de fondo */
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all 0.3s ease; /* Agrega una transición para la animación */
+  }
+  
+  .acceptButton:hover {
+    transition-duration: 1.2s;
+    background-color: #a3f037; /* Cambia el color de fondo al pasar el mouse */
+    transform: scale(1.2); /* Agranda el botón al pasar el mouse */
+    
+  }
+  
+  @media screen and (max-width: 768px) {
+    .cardGrid {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      overflow-y: auto;
+    }
+}
