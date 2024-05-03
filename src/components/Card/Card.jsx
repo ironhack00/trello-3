@@ -1,15 +1,28 @@
 import React from 'react';
 import styles from './Card.module.css'; // Estilos CSS Modules para el componente
 
-const Card = ({ title, description }) => {
+const Card = ({ data }) => {
+  console.log(data)
   return (
     <div className={styles.card}>
       <div className={styles.inner}>
         <div className={styles.front}>
-          <h3>{title}</h3>
+          <h3>{data.nameboard}</h3>
         </div>
         <div className={styles.back}>
-          <p>{description}</p>
+          {
+            data.users && data.users.map( (elemento, index ) =>{
+              /* console.log(index) */
+              return(
+                <>
+                  {
+                   index === 0 ? <p className={styles.ad}>{elemento}</p> : <p>{elemento}</p>
+                  }
+                 </>
+              )
+            } )
+          }
+          
         </div>
       </div>
     </div>

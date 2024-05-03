@@ -24,15 +24,17 @@ const LoginForm = () => {
         // Registro de usuario
         const response = await axios.post('http://localhost:3000/users', formData);
         setData(response.data);
+        localStorage.setItem('userData', JSON.stringify(response.data));
         navigate('/app');
       } else {
         // Inicio de sesión
-        console.log(formData)
+        /* console.log(formData) */
         const userResponse = await axios.get('http://localhost:3000/user',{
           params: formData
         });
         // Aquí puedes hacer lo que necesites con la respuesta del usuario, por ejemplo:
         console.log('Usuario logueado:', userResponse.data);
+        localStorage.setItem('userData', JSON.stringify(userResponse.data));
         navigate('/app');
       }
     } catch (error) {
@@ -56,7 +58,8 @@ const LoginForm = () => {
     try {
       const response = await axios.post('http://localhost:3000/users', responseData);
       setData(response.data);
-      alert(response.data);
+      console.log(response.data);
+      localStorage.setItem('userData', JSON.stringify(response.data));
       navigate('/app');
     } catch (error) {
       if (error.response && error.response.data && error.response.data.message) {

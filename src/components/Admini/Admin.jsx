@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import styles from './Admin.module.css'; // Importa los estilos CSS Modules
 import Card from '../Card/Card'; // Importa el componente Card
 import axios from 'axios';
@@ -8,9 +8,43 @@ const AdminComponent = () => {
 
   const navigate = useNavigate();
 
+  const [boards, setBoards] = useState([]);
   const [showForm, setShowForm] = useState(false);
-  const [boardName, setBoardName] = useState('');
-  const [invitees, setInvitees] = useState(['']);
+  const [nameboard, setBoardName] = useState('');
+  const [invitees, setInvitees] = useState([]);
+  const [localStorageData, setLocalStorageData] = useState(null);
+
+  useEffect(() => {
+    const storedData = localStorage.getItem('userData');
+    if (storedData) {
+      setLocalStorageData(JSON.parse(storedData));
+      
+      const fetchBoards = async () => {
+        try {
+          // Realizar la solicitud GET a la ruta /boards
+          const response = await axios.get(`http://localhost:3000/board?userEmail=${JSON.parse(storedData).email}`);
+          console.log(response.data)
+          // Actualizar el estado con las tablas (boards) recibidas del backend
+          setBoards(response.data.boards);
+          /* console.log(response.data.boards); */
+        } catch (error) {
+          console.error('Error fetching boards:', error);
+        }
+      };
+  
+      // Llamar a fetchBoards para que se ejecute al cargar el componente
+      fetchBoards();
+    }
+  }, []);
+  
+
+  // UseEffect para actualizar la lista de tableros cuando se modifique `boards`
+  useEffect(() => {
+    // Aquí puedes realizar cualquier acción que necesites al cambiar `boards`
+    /* console.log('Boards actualizados:', boards); */
+  }, [boards]);
+
+  /* console.log(localStorageData) */
 
   const handleBoardNameChange = (event) => {
     setBoardName(event.target.value);
@@ -47,14 +81,23 @@ const AdminComponent = () => {
     // Por ejemplo, enviar los datos al servidor
     alert('Board creado con éxito');
     const newObjet = {
-      boardName,
+      nameboard,
       invitees
     }
-    console.log( newObjet)
+
+    newObjet.userEmail = localStorageData.email;
+    console.log(invitees);
     try {
       const response = await axios.post('http://localhost:3000/board', newObjet);
-/*       setData(response.data); */
-      navigate('/app');
+      console.log(response.data, ' acaaaaaa')
+      /* setData(response.data); */
+      // Actualizar la lista de tableros después de crear uno nuevo
+      setBoards(prevBoards => [...prevBoards, response.data.board]);
+      const response2 = await axios.get(`http://localhost:3000/board?userEmail=${localStorageData.email}`);
+        console.log(response2.data)
+        // Actualizar el estado con las tablas (boards) recibidas del backend
+        setBoards(response2.data.boards);
+      /* navigate('/app'); */
     } catch (error) {
       if (error.response && error.response.data && error.response.data.message) {
         alert(error.response.data.message); // Mostrar mensaje de error al usuario
@@ -62,15 +105,11 @@ const AdminComponent = () => {
         console.error('Error fetching data:', error);
       }
     }
-   
+
     setShowForm(false);
     setBoardName('');
     setInvitees(['']);
   };
-
-  const responseMessage = async (responseData) => {
-};
-
 
   return (
     <div className={styles.adminContainer}>
@@ -90,7 +129,7 @@ const AdminComponent = () => {
               type="text"
               id="boardName"
               className={styles.inputField2}
-              value={boardName}
+              value={nameboard}
               onChange={handleBoardNameChange}
             />
             <label>Invite People:</label>
@@ -125,9 +164,10 @@ const AdminComponent = () => {
         </div>
       )}
       <div className={styles.cardGrid}>
-        
-        
-        {/* Puedes agregar más instancias del componente Card según sea necesario */}
+      {
+        boards.length > 0 && boards.map((board, i) => (
+         <Card key={board._id} data={board} userEmail={localStorageData.email} />
+      ))}
       </div>
     </div>
   );
