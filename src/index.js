@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-import App from './App';
+import App from './App'; // Importa el componente App desde su archivo correspondiente
 import reportWebVitals from './reportWebVitals';
 import { CssBaseline } from '@mui/material';
 import LoginForm from './components/Register/LoginForm';
@@ -22,7 +22,7 @@ ReactDOM.render(
         <Route path="/" element={<LoginForm />} />
         {/* Agrega más rutas aquí según sea necesario */}
         <Route path="/app" element={<Admini />} />
-        <Route path="/board" element={<App />} />
+        <Route path="/board/:boardId" element={<App />} />
       </Routes>
     </Router>
   </div>

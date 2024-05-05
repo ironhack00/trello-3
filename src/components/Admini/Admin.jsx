@@ -3,6 +3,7 @@ import styles from './Admin.module.css'; // Importa los estilos CSS Modules
 import Card from '../Card/Card'; // Importa el componente Card
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 const AdminComponent = () => {
 
@@ -23,7 +24,7 @@ const AdminComponent = () => {
         try {
           // Realizar la solicitud GET a la ruta /boards
           const response = await axios.get(`http://localhost:3000/board?userEmail=${JSON.parse(storedData).email}`);
-          console.log(response.data)
+          console.log('holis ',response.data)
           // Actualizar el estado con las tablas (boards) recibidas del backend
           setBoards(response.data.boards);
           /* console.log(response.data.boards); */
@@ -164,11 +165,12 @@ const AdminComponent = () => {
         </div>
       )}
       <div className={styles.cardGrid}>
-      {
-        boards.length > 0 && boards.map((board, i) => (
-         <Card key={board._id} data={board} userEmail={localStorageData.email} />
+        {boards.length > 0 && boards.map((board, i) => (
+        <Link key={board._id} to={`/board/${board._id}`} className={styles.cardLink}>
+          <Card data={board} userEmail={localStorageData.email} />
+        </Link>
       ))}
-      </div>
+    </div>
     </div>
   );
 }
