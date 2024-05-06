@@ -80,66 +80,68 @@ const App = () => {
   };
 
   const onDragEnd = async (result) => {
-    const { destination, source, draggableId, type } = result;
-    if (!destination) return;
+  const { destination, source, draggableId, type } = result;
+  console.log( source, ' aqui2');
+  if (!destination) return;
 
-    if (type === 'list') {
-      const newListIds = Array.from(data.listIds);
-      newListIds.splice(source.index, 1);
-      newListIds.splice(destination.index, 0, draggableId);
-      try {
-        await axios.put(`${API_BASE_URL}/board/${boardId}/reorder-lists`, { newListIds });
-        setData({ ...data, listIds: newListIds });
-      } catch (error) {
-        console.error("Error reordering lists:", error);
-      }
-      return;
+  if (type === 'list') {
+    // Reordenar las listas
+    const newListOrder = Array.from(data.lists);
+    const movedList = newListOrder.splice(source.index, 1)[0];
+    newListOrder.splice(destination.index, 0, movedList);
+    console.log(newListOrder, 'aqui');
+    try {
+      await axios.put(`${API_BASE_URL}/board/${boardId}/reorder-lists`, { newListOrder });
+      setData({ ...data, lists: newListOrder });
+    } catch (error) {
+      console.error("Error reordering lists:", error);
     }
+    return;
+  }
 
-    const sourceList = data.lists.find(list => list._id === source.droppableId);
-    const destinationList = data.lists.find(list => list._id === destination.droppableId);
-    const draggedCard = sourceList.cards.find(card => card.id === draggableId);
+  const sourceListIndex = data.lists.findIndex(list => list._id === source.droppableId);
+  const destinationListIndex = data.lists.findIndex(list => list._id === destination.droppableId);
+  const sourceList = data.lists[sourceListIndex];
+  const destinationList = data.lists[destinationListIndex];
+  const sourceCards = Array.from(sourceList.cards);
+  const destinationCards = Array.from(destinationList.cards);
+  const movedCard = sourceCards.find(card => card.id === draggableId);
 
-    if (source.droppableId === destination.droppableId) {
-      const newCards = Array.from(sourceList.cards);
-      newCards.splice(source.index, 1);
-      newCards.splice(destination.index, 0, draggedCard);
-      try {
-        await axios.put(`${API_BASE_URL}/board/${boardId}/list/${sourceList._id}/reorder-cards`, { cards: newCards });
-        setData({
-          ...data,
-          lists: data.lists.map(list => list._id === sourceList._id ? { ...list, cards: newCards } : list)
-        });
-      } catch (error) {
-        console.error("Error reordering cards within the same list:", error);
-      }
+  // Remover la tarjeta de la lista de origen
+  sourceCards.splice(source.index, 1);
+  // Insertar la tarjeta en la lista de destino
+  destinationCards.splice(destination.index, 0, movedCard);
+
+  try {
+    if (sourceList._id === destinationList._id) {
+      // Reordenar las tarjetas dentro de la misma lista
+      await axios.put(`${API_BASE_URL}/board/${boardId}/list/${sourceList._id}/reorder-cards`, { cards: destinationCards });
+      setData({
+        ...data,
+        lists: data.lists.map((list, index) => index === sourceListIndex ? { ...list, cards: destinationCards } : list)
+      });
     } else {
-      const sourceCards = Array.from(sourceList.cards);
-      sourceCards.splice(source.index, 1);
-      const destinationCards = Array.from(destinationList.cards);
-      destinationCards.splice(destination.index, 0, draggedCard);
-      try {
-        await axios.put(`${API_BASE_URL}/board/${boardId}/move-card`, {
-          sourceListId: sourceList._id,
-          destinationListId: destinationList._id,
-          cards: { sourceCards, destinationCards }
-        });
-        setData({
-          ...data,
-          lists: data.lists.map(list =>
-            list._id === sourceList._id
-              ? { ...list, cards: sourceCards }
-              : list._id === destinationList._id
-                ? { ...list, cards: destinationCards }
-                : list
-          )
-        });
-      } catch (error) {
-        console.error("Error moving card from one list to another:", error);
-      }
+      // Mover la tarjeta de una lista a otra
+      await axios.put(`${API_BASE_URL}/board/${boardId}/move-card`, {
+        sourceListId: sourceList._id,
+        destinationListId: destinationList._id,
+        cards: { sourceCards, destinationCards }
+      });
+      setData({
+        ...data,
+        lists: data.lists.map((list, index) =>
+          index === sourceListIndex ? { ...list, cards: sourceCards } :
+          index === destinationListIndex ? { ...list, cards: destinationCards } :
+          list
+        )
+      });
     }
-  };
+  } catch (error) {
+    console.error("Error moving or reordering cards:", error);
+  }
+};
 
+  
   const Delete = async (listId) => {
     try {
       // Realiza una solicitud DELETE al servidor para eliminar la lista
