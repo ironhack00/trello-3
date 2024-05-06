@@ -2,7 +2,7 @@ import React from 'react';
 import styles from './Card.module.css'; // Estilos CSS Modules para el componente
 
 const Card = ({ data }) => {
-  console.log(data)
+  console.log(data, ' ------><-----')
   return (
     <div className={styles.card}>
       <div className={styles.inner}>

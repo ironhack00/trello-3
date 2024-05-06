@@ -32,6 +32,7 @@ const input = {
 };
 
 const ListTitle = ({ title, listId }) => {
+  /* console.log(listId, '<<<<<---->>>>>') */
   const [clicked, setClicked] = useState(false);
   const [open, setOpen] = useState(!title);
   const [newTitle, setNewTitle] = useState(title);
