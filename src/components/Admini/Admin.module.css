@@ -12,6 +12,9 @@
     height: 100%;
     overflow-y: auto; /* Permite el scroll vertical cuando sea necesario */
     padding-bottom: 20px; 
+    background-image: url('../../img/a.jpg');
+    background-position: center;
+    background-size: cover;
   }
   
   .adminHeader {
