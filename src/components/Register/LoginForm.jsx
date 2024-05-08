@@ -22,14 +22,14 @@ const LoginForm = () => {
     try {
       if (isSignUp) {
         // Registro de usuario
-        const response = await axios.post('http://localhost:3000/users', formData);
+        const response = await axios.post('https://trello-back-c18a.onrender.com/users', formData);
         setData(response.data);
         localStorage.setItem('userData', JSON.stringify(response.data));
         navigate('/app');
       } else {
         // Inicio de sesión
         /* console.log(formData) */
-        const userResponse = await axios.get('http://localhost:3000/user',{
+        const userResponse = await axios.get('https://trello-back-c18a.onrender.com/user',{
           params: formData
         });
         // Aquí puedes hacer lo que necesites con la respuesta del usuario, por ejemplo:
@@ -56,7 +56,7 @@ const LoginForm = () => {
 
   const responseMessage = async (responseData) => {
     try {
-      const response = await axios.post('http://localhost:3000/users', responseData);
+      const response = await axios.post('https://trello-back-c18a.onrender.com/users', responseData);
       setData(response.data);
       console.log(response.data);
       localStorage.setItem('userData', JSON.stringify(response.data));

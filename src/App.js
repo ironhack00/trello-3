@@ -10,7 +10,7 @@ import { DragDropContext, Droppable } from 'react-beautiful-dnd';
 import axios from "axios";
 import { useParams } from "react-router-dom";
 
-const API_BASE_URL = "http://localhost:3000";
+const API_BASE_URL = "https://trello-back-c18a.onrender.com";
 
 const App = () => {
   const { boardId } = useParams();
