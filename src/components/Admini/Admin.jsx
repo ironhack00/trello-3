@@ -23,7 +23,7 @@ const AdminComponent = () => {
       const fetchBoards = async () => {
         try {
           // Realizar la solicitud GET a la ruta /boards
-          const response = await axios.get(`http://localhost:3000/board?userEmail=${JSON.parse(storedData).email}`);
+          const response = await axios.get(`https://trello-back-c18a.onrender.com/board?userEmail=${JSON.parse(storedData).email}`);
           console.log('holis ',response.data)
           // Actualizar el estado con las tablas (boards) recibidas del backend
           setBoards(response.data.boards);
