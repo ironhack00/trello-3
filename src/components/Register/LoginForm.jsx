@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import styles from './LoginForm.module.css';
 import axios from 'axios';
-import { useNavigate  } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
+import { GoogleLogin } from '@react-oauth/google';
 
 const LoginForm = () => {
   const [isSignUp, setIsSignUp] = useState(false);
@@ -10,7 +11,7 @@ const LoginForm = () => {
     email: '',
     password: ''
   });
-  const navigate = useNavigate ();
+  const navigate = useNavigate();
   const [data, setData] = useState(null);
 
   const handleToggleForm = () => {
@@ -18,26 +19,59 @@ const LoginForm = () => {
   };
 
   const handleSubmit = async () => {
-    console.log(formData)
     try {
-      const response = await axios.post('http://localhost:3000/users', formData);
-      setData(response.data);
-      console.log(data);
-      navigate('/app');
+      if (isSignUp) {
+        // Registro de usuario
+        const response = await axios.post('https://trello-back-c18a.onrender.com/users', formData);
+        setData(response.data);
+        localStorage.setItem('userData', JSON.stringify(response.data));
+        navigate('/app');
+      } else {
+        // Inicio de sesión
+        /* console.log(formData) */
+        const userResponse = await axios.get('https://trello-back-c18a.onrender.com/user',{
+          params: formData
+        });
+        // Aquí puedes hacer lo que necesites con la respuesta del usuario, por ejemplo:
+        console.log('Usuario logueado:', userResponse.data);
+        localStorage.setItem('userData', JSON.stringify(userResponse.data));
+        navigate('/app');
+      }
     } catch (error) {
       if (error.response && error.response.data && error.response.data.message) {
-        alert(error.response.data.message); // Mostrar mensaje de error al usuario
+        alert(error.response.data.message);
       } else {
-        console.error('Error fetching data:', error);
+        console.error('Error:', error);
       }
     }
   };
+  
 
   const handleChange = (e) => {
     setFormData({
       ...formData,
       [e.target.name]: e.target.value
     });
+  };
+
+  const responseMessage = async (responseData) => {
+    try {
+      const response = await axios.post('https://trello-back-c18a.onrender.com/users', responseData);
+      setData(response.data);
+      console.log(response.data);
+      localStorage.setItem('userData', JSON.stringify(response.data));
+      navigate('/app');
+    } catch (error) {
+      if (error.response && error.response.data && error.response.data.message) {
+        alert(error.response.data.message);
+      } else {
+        console.error('Error fetching data:', error);
+      }
+    }
+  };
+
+  const errorMessage = (error) => {
+    console.log(error);
   };
 
   return (
@@ -47,42 +81,42 @@ const LoginForm = () => {
           <h2 className={styles.h2}>{isSignUp ? 'Sign Up' : 'Sign In'}</h2>
           {isSignUp && (
             <label className={styles.label}>
-              <span>Name</span>
-              <input 
+              <span>Username</span>
+              <input
                 onChange={handleChange}
-                value={formData.username}  
+                value={formData.username}
                 name="username"
-                className={styles.input} 
-                type="text" 
-                placeholder="Enter your name" 
+                className={styles.input}
+                type="text"
+                placeholder="Enter your username"
               />
             </label>
           )}
           <label className={styles.label}>
             <span>Email</span>
-            <input 
+            <input
               onChange={handleChange}
-              value={formData.email}  
+              value={formData.email}
               name="email"
-              className={styles.input} 
-              type="email" 
-              placeholder="Enter your email" 
+              className={styles.input}
+              type="email"
+              placeholder="Enter your email"
             />
           </label>
           <label className={styles.label}>
             <span>Password</span>
-            <input 
+            <input
               onChange={handleChange}
-              value={formData.password}  
+              value={formData.password}
               name="password"
-              className={styles.input} 
-              type="password" 
-              placeholder="Enter your password" 
+              className={styles.input}
+              type="password"
+              placeholder="Enter your password"
             />
           </label>
-          <button 
-            type="button" 
-            onClick={handleSubmit} 
+          <button
+            type="button"
+            onClick={handleSubmit}
             className={`${styles['button-submit']} ${styles['button']}`}
           >
             {isSignUp ? 'Sign Up' : 'Sign In'}
@@ -90,6 +124,9 @@ const LoginForm = () => {
         </div>
         <div className={styles.toggle} onClick={handleToggleForm}>
           {isSignUp ? 'Already have an account? Sign In' : "Don't have an account? Sign Up"}
+        </div>
+        <div className={styles.google}>
+          <GoogleLogin onSuccess={responseMessage} onError={errorMessage} />
         </div>
       </div>
     </div>

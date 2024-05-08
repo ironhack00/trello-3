@@ -1,0 +1,47 @@
+.card {
+  width: 280px;
+  height: 200px;
+  perspective: 1000px; /* Define la perspectiva del efecto 3D */
+}
+
+.inner {
+  width: 100%;
+  height: 100%;
+  transition: transform 1s; /* Aumenta la duración de la transición */
+  transform-style: preserve-3d; /* Preserva el efecto 3D */
+}
+
+.card:hover .inner {
+  transform: rotateY(180deg); /* Rota la tarjeta 180 grados al hacer hover */
+}
+
+.front,
+.back {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  backface-visibility: hidden; /* Oculta la parte trasera de la tarjeta */
+}
+
+.front {
+  background-color: #f4f4f4;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  padding: 20px;
+}
+
+.back {
+  background-color: #f4f4f4;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  padding: 20px;
+  transform: rotateY(180deg); /* Rota la parte trasera de la tarjeta */
+  color: black;
+}
+
+.ad{
+  background-color: rgba(161, 161, 161, 0.355);
+  border-radius: 5px;
+  margin-bottom: 9px;
+  color: black;
+}

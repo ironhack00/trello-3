@@ -28,6 +28,7 @@ const btn = {
 }
 
 const AddCardList = ({type, listId}) => {
+  /* console.log(listId, '*******') */
   const [isAddCardListOpen, setIsAddCardListOpen] = useState(false);
   const classes = useStyles();
 

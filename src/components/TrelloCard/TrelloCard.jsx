@@ -14,8 +14,10 @@ const trelloCard ={
   margin: '8px 8px 8px 8px'
 }
 
-const TrelloCard = ({ card, index }) => {
+const TrelloCard = ({ card, index, list }) => {
   
+  /* console.log(card, '********') */
+
   const [isEditing, setIsEditing] = useState(false);
   const [newTitle, setNewTitle] = useState(card.title);
   const [showConfirmation, setShowConfirmation] = useState(false);
@@ -31,12 +33,12 @@ const TrelloCard = ({ card, index }) => {
 
   const handleEditConfirm = () => {
     setIsEditing(false);
-    handleChangeTitle(newTitle, card.id);
+    handleChangeTitle(newTitle, card._id, list._id);
   };
 
   const handleEditCancel = () => {
     setIsEditing(false);
-    setNewTitle(card.title);
+    setNewTitle(card);
   };
 
   const handleDelete = () => {
@@ -44,7 +46,8 @@ const TrelloCard = ({ card, index }) => {
   };
 
   const handleDeleteConfirmed = () => {
-    deleteCard(card.id);
+    /* console.log(list, ' caaaaaaaard') */
+    deleteCard(card._id, list._id);
     setShowConfirmation(false);
   };
 
@@ -55,12 +58,12 @@ const TrelloCard = ({ card, index }) => {
   const handleOutsideClick = (e) => {
     if (!e.target.closest('.editable-area')) {
       setIsEditing(false);
-      setNewTitle(card.title);
+      setNewTitle(card);
     }
   };
 
   return (
-    <Draggable draggableId={card.id} index={index}>
+    <Draggable draggableId={card._id} index={index}>
       {(provided) => (
         <div 
           ref={provided.innerRef}
