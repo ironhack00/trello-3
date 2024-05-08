@@ -113,6 +113,7 @@ const AdminComponent = () => {
   };
 
   return (
+    <div className={styles.adminContainer2}>
     <div className={styles.adminContainer}>
       <div className={styles.adminHeader}>
         <button className={styles.createBoardBtn} onClick={handleCreateBoard}>
@@ -170,6 +171,7 @@ const AdminComponent = () => {
           <Card data={board} userEmail={localStorageData.email} />
         </Link>
       ))}
+    </div>
     </div>
     </div>
   );

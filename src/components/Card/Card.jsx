@@ -16,7 +16,7 @@ const Card = ({ data }) => {
               return(
                 <>
                   {
-                   index === 0 ? <p className={styles.ad}>{elemento}</p> : <p>{elemento}</p>
+                   index === 0 ? <p className={styles.ad}> Board creator {elemento}</p> : <p>{elemento}</p>
                   }
                  </>
               )

@@ -36,10 +36,12 @@
   border-radius: 5px;
   padding: 20px;
   transform: rotateY(180deg); /* Rota la parte trasera de la tarjeta */
+  color: black;
 }
 
 .ad{
   background-color: rgba(161, 161, 161, 0.355);
   border-radius: 5px;
-  margin-bottom: 2px;
+  margin-bottom: 9px;
+  color: black;
 }
