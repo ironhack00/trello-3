@@ -125,9 +125,9 @@ const LoginForm = () => {
         <div className={styles.toggle} onClick={handleToggleForm}>
           {isSignUp ? 'Already have an account? Sign In' : "Don't have an account? Sign Up"}
         </div>
-        <div className={styles.google}>
+       {/*  <div className={styles.google}>
           <GoogleLogin onSuccess={responseMessage} onError={errorMessage} />
-        </div>
+        </div> */}
       </div>
     </div>
   );
