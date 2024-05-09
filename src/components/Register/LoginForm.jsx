@@ -21,8 +21,9 @@ const LoginForm = () => {
   const handleSubmit = async () => {
     try {
       if (isSignUp) {
-        // Registro de usuario
+        // Registro de usuario http://localhost:3000
         const response = await axios.post('https://trello-back-c18a.onrender.com/users', formData);
+        /* const response = await axios.post('http://localhost:3000/users', formData); */
         setData(response.data);
         localStorage.setItem('userData', JSON.stringify(response.data));
         navigate('/app');
@@ -32,8 +33,11 @@ const LoginForm = () => {
         const userResponse = await axios.get('https://trello-back-c18a.onrender.com/user',{
           params: formData
         });
+        /* const userResponse = await axios.get('http://localhost:3000/user',{
+          params: formData
+        }); */
         // Aquí puedes hacer lo que necesites con la respuesta del usuario, por ejemplo:
-        console.log('Usuario logueado:', userResponse.data);
+        /* console.log('Usuario logueado:', userResponse.data); */
         localStorage.setItem('userData', JSON.stringify(userResponse.data));
         navigate('/app');
       }
@@ -57,8 +61,9 @@ const LoginForm = () => {
   const responseMessage = async (responseData) => {
     try {
       const response = await axios.post('https://trello-back-c18a.onrender.com/users', responseData);
+      /* const response = await axios.post('http://localhost:3000/users', responseData); */
       setData(response.data);
-      console.log(response.data);
+      /* console.log(response.data); */
       localStorage.setItem('userData', JSON.stringify(response.data));
       navigate('/app');
     } catch (error) {
@@ -71,7 +76,7 @@ const LoginForm = () => {
   };
 
   const errorMessage = (error) => {
-    console.log(error);
+    /* console.log(error); */
   };
 
   return (
@@ -125,9 +130,9 @@ const LoginForm = () => {
         <div className={styles.toggle} onClick={handleToggleForm}>
           {isSignUp ? 'Already have an account? Sign In' : "Don't have an account? Sign Up"}
         </div>
-        <div className={styles.google}>
+       {/*  <div className={styles.google}>
           <GoogleLogin onSuccess={responseMessage} onError={errorMessage} />
-        </div>
+        </div> */}
       </div>
     </div>
   );

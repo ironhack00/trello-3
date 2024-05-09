@@ -24,7 +24,7 @@ const AdminComponent = () => {
         try {
           // Realizar la solicitud GET a la ruta /boards
           const response = await axios.get(`https://trello-back-c18a.onrender.com/board?userEmail=${JSON.parse(storedData).email}`);
-          console.log('holis ',response.data)
+          /* console.log('holis ',response.data) */
           // Actualizar el estado con las tablas (boards) recibidas del backend
           setBoards(response.data.boards);
           /* console.log(response.data.boards); */
@@ -87,15 +87,15 @@ const AdminComponent = () => {
     }
 
     newObjet.userEmail = localStorageData.email;
-    console.log(invitees);
+    /* console.log(invitees); */
     try {
       const response = await axios.post('https://trello-back-c18a.onrender.com/board', newObjet);
-      console.log(response.data, ' acaaaaaa')
+      /* console.log(response.data, ' acaaaaaa') */
       /* setData(response.data); */
       // Actualizar la lista de tableros después de crear uno nuevo
       setBoards(prevBoards => [...prevBoards, response.data.board]);
       const response2 = await axios.get(`https://trello-back-c18a.onrender.com/board?userEmail=${localStorageData.email}`);
-        console.log(response2.data)
+       /*  console.log(response2.data) */
         // Actualizar el estado con las tablas (boards) recibidas del backend
         setBoards(response2.data.boards);
       /* navigate('/app'); */
